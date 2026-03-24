@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Coin Tosser</title>
+
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        text-align: center;
+        background: linear-gradient(135deg, #1e1e2f, #3a3a5f);
+        color: white;
+    }
+
+    h1 {
+        margin-top: 20px;
+    }
+
+    .coin {
+        width: 150px;
+        height: 150px;
+        margin: 30px auto;
+        border-radius: 50%;
+        background: gold;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 24px;
+        font-weight: bold;
+        cursor: pointer;
+        transition: transform 1s;
+        box-shadow: 0 0 20px rgba(255, 215, 0, 0.7);
+    }
+
+    .spin {
+        animation: spin 1s ease-in-out;
+    }
+
+    @keyframes spin {
+        0% { transform: rotateY(0deg); }
+        100% { transform: rotateY(1080deg); }
+    }
+
+    input {
+        padding: 10px;
+        margin: 10px;
+        width: 200px;
+        border-radius: 5px;
+        border: none;
+    }
+
+    .result {
+        font-size: 22px;
+        margin-top: 20px;
+    }
+
+    .task {
+        margin-top: 10px;
+        font-size: 18px;
+        color: #ffd700;
+    }
+</style>
+</head>
+
+<body>
+
+<h1>🪙 Coin Tosser</h1>
+
+<p>Click the coin to toss!</p>
+
+<div class="coin" id="coin">?</div>
+
+<div>
+    <input type="text" id="headsTask" placeholder="Task for Heads">
+    <br>
+    <input type="text" id="tailsTask" placeholder="Task for Tails">
+</div>
+
+<div class="result" id="result"></div>
+<div class="task" id="task"></div>
+
+<script>
+    const coin = document.getElementById("coin");
+    const resultText = document.getElementById("result");
+    const taskText = document.getElementById("task");
+
+    coin.addEventListener("click", () => {
+        coin.classList.add("spin");
+
+        setTimeout(() => {
+            coin.classList.remove("spin");
+
+            let result = Math.random() < 0.5 ? "Heads" : "Tails";
+            coin.innerText = result;
+
+            resultText.innerText = "Result: " + result;
+
+            let headsTask = document.getElementById("headsTask").value;
+            let tailsTask = document.getElementById("tailsTask").value;
+
+            if (result === "Heads") {
+                taskText.innerText = headsTask ? "Do: " + headsTask : "";
+            } else {
+                taskText.innerText = tailsTask ? "Do: " + tailsTask : "";
+            }
+
+        }, 1000);
+    });
+</script>
+
+</body>
+</html>
